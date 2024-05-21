@@ -3,9 +3,9 @@ import { apiFoo } from "../../api";
 import ImageCard from "./ImageCard/ImageCard";
 import css from "./ImageGallery.module.css"
 
-export default function ImageGallery({ query }) {
+export default function ImageGallery({ query,}) {
   const [images, setImages] = useState([]);
-
+  
   useEffect(() => {
     const fetchImages = async () => {
       if (query) {
@@ -18,17 +18,18 @@ export default function ImageGallery({ query }) {
           setImages(imageData);
         } catch (error) {
           console.error(error);
-        }
+        } 
       }
     };
 
     fetchImages();
   }, [query]);
-   if (images.length === 0) {
+
+  if (images.length === 0) {
     return null;
   }
 
-  return (
+   return (
     <div>
       <ul className={css.imgList}>
         {images.map((image, index) => (
