@@ -2,14 +2,15 @@ import { apiFoo } from "./api"
 import axios from "axios";
 import SearchBar from "./components/SearchBar/SearchBar"
 import { useState } from "react";
+import ImageGallery from "./components/ImageGallery/ImageGallery"
 function App() {
-  const onSubmit = async (query) => {
-    try {
-      await axios.get(apiFoo(query))} catch { console.log("error") } 
-    
+  const [query, setQuery] = useState('');
+  function handleSearch(query) {
+    setQuery(query)
   }
   return (<>
-    <SearchBar onSubmit={onSubmit} />
+    <SearchBar onSubmit={handleSearch} />
+    <ImageGallery query={query} />
   </>)
 }
 
