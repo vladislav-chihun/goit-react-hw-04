@@ -1,11 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function SearchBar({ onSubmit }) {
   const [query, setQuery] = useState("");
 
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(); 
     onSubmit(query); 
   };
 
@@ -18,6 +21,7 @@ export default function SearchBar({ onSubmit }) {
           autoFocus
           placeholder="Search images and photos"
           value={query}
+          onChange={handleChange}
         />
         <button type="submit">Search</button>
       </form>
