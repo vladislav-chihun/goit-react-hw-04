@@ -6,7 +6,7 @@ import Loader from "./components/Loader/Loader"
 
 function App() {
   const [query, setQuery] = useState('');
-  const [isLoading,setIsLoading] = useState('false')
+  const [isLoading,setIsLoading] = useState(false)
   function handleSearch(query) {
 
     setQuery(query)
