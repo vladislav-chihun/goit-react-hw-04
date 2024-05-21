@@ -3,6 +3,7 @@ import axios from "axios";
 import SearchBar from "./components/SearchBar/SearchBar"
 import { useState } from "react";
 import ImageGallery from "./components/ImageGallery/ImageGallery"
+
 function App() {
   const [query, setQuery] = useState('');
   function handleSearch(query) {

@@ -1,0 +1,33 @@
+.searchForm {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header {
+  background-color: darkblue;
+  height: 50px;
+}
+.formInput {
+  height: 30px;
+  border-radius: 2px;
+  border: 1px solid white;
+  width: 2000px;
+}
+.formInput:hover {
+  border-color: grey;
+  transition: linear 100ms;
+}
+.formBtn {
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  margin-left: 5px;
+  transition: linear 100ms;
+}
+.formBtn:hover {
+  background-color: gray;
+}

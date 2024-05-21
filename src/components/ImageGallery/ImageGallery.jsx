@@ -1,39 +1,39 @@
-import axios from "axios";
-import { apiFoo } from "../../api"; 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { apiFoo } from "../../api";
 import ImageCard from "./ImageCard/ImageCard";
+import css from "./ImageGallery.module.css"
+
 export default function ImageGallery({ query }) {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const fetchImages =  async (query) => {
+    const fetchImages = async () => {
       if (query) {
         try {
-          const response = await axios.get(apiFoo(query));
-          const imageData = response.data.map((image) => ({
+          const data = await apiFoo(query); 
+          const imageData = data.results.map((image) => ({
             smallImg: image.urls.small,
             regularImg: image.urls.regular,
           }));
           setImages(imageData);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     };
 
     fetchImages();
   }, [query]);
+   if (images.length === 0) {
+    return null;
+  }
 
   return (
     <div>
-      <ul>
+      <ul className={css.imgList}>
         {images.map((image, index) => (
           <li key={index}>
-            <div>
-              <img src={image.smallImg} alt="" />
-            </div>
-            <ImageCard regularImg={image.regularImg}/>
+             <ImageCard smallImg={image.smallImg} regularImg={image.regularImg} />
           </li>
         ))}
       </ul>
