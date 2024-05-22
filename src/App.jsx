@@ -14,7 +14,6 @@ function App() {
   const [images, setImages] = useState([]);
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showBtn, setShowBtn] = useState(false);
@@ -39,7 +38,7 @@ function App() {
           regularImg: image.urls.regular,
         }));
         setImages((prevData) => [...prevData, ...imageData]);
-        setTotalPages(data.total_pages);
+        setShowBtn(data.total_pages);
         setShowBtn(data.total_pages > page);
       } catch (error) {
         setIsError(true);
