@@ -14,6 +14,7 @@ function App() {
   function handleSearch(query) {
     setQuery(query)
     setPage(1)
+    setImages([])
   }
  
   useEffect(() => {
