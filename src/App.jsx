@@ -6,6 +6,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
 function App() {
   const [query, setQuery] = useState('');
@@ -67,7 +68,7 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
-      {isError && <p className={appCss.fetchError}>Error occurred while fetching images.</p>}
+      {isError && <ErrorMessage />}
       {isLoading && <Loader />}
       {!isLoading && images.length === 0 && query !== "" && !isError && <p className={appCss.noImgFound}>No Images Found</p>}
       {!isLoading && images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
