@@ -18,6 +18,7 @@
   width: 2000px;
 }
 .formInput:hover {
+  border-style: solid;
   border-color: grey;
   transition: linear 100ms;
 }
