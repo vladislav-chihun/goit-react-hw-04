@@ -13,6 +13,7 @@ function App() {
   const [images, setImages] = useState([]);
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showBtn, setShowBtn] = useState(false);
@@ -29,7 +30,6 @@ function App() {
         return;
       }
       try {
-        
         setIsError(false);
         setIsLoading(true);
         const data = await apiFoo(query, page);
@@ -37,8 +37,9 @@ function App() {
           smallImg: image.urls.small,
           regularImg: image.urls.regular,
         }));
-        
         setImages((prevData) => [...prevData, ...imageData]);
+        setTotalPages(data.total_pages);
+        setShowBtn(data.total_pages > page);
       } catch (error) {
         setIsError(true);
       } finally {
@@ -48,11 +49,10 @@ function App() {
     fetchImages();
   }, [query, page]);
 
- const handleLoadMore = (event) => {
-  event.preventDefault();
-  setPage(page + 1);
-};
-
+  const handleLoadMore = (event) => {
+    event.preventDefault();
+    setPage((prevPage) => prevPage + 1);
+  };
 
   const handleImageClick = (largeImg) => {
     setSelectedImage(largeImg);
@@ -69,7 +69,7 @@ function App() {
       <SearchBar onSubmit={handleSearch} />
       {isError && <p className={appCss.fetchError}>Error occurred while fetching images.</p>}
       {isLoading && <Loader />}
-      {!isLoading && images.length === 0 && query !== "" && isError === false && <p className={appCss.noImgFound}>No Images Found</p>}
+      {!isLoading && images.length === 0 && query !== "" && !isError && <p className={appCss.noImgFound}>No Images Found</p>}
       {!isLoading && images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
       {!isLoading && images.length > 0 && !isError && showBtn && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
       <ImageModal isOpen={isModalOpen} onRequestClose={handleCloseModal} largeImg={selectedImage} />
