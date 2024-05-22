@@ -1,8 +1,8 @@
 import css from "./ImageCard.module.css"
-export default function ImageCard({ smallImg, regularImg }) {
+export default function ImageCard({ smallImg }) {
   return (
     <div >
-      <img src={smallImg} className={css.imgCard} alt="Small version" />
+      <img src={smallImg} className={css.imgCard}  />
     </div>
   );
 }

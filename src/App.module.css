@@ -1,0 +1,9 @@
+.noImgFound {
+  display: flex;
+  justify-content: center;
+}
+.fetchError {
+  display: flex;
+  justify-content: center;
+  color: red;
+}

@@ -10,9 +10,11 @@ export default function ImageModal({ isOpen, onRequestClose, largeImg }) {
       onRequestClose={onRequestClose}
       className={css.modal}
       overlayClassName={css.overlay}
+      shouldCloseOnOverlayClick={true}
+      shouldCloseOnEsc={true}
     >
-      <div className={css.modalContent}>
-        <img src={largeImg} alt="Large version" className={css.largeImg} />
+      <div >
+        <img src={largeImg} className={css.largeImg} />
       </div>
     </Modal>
   );

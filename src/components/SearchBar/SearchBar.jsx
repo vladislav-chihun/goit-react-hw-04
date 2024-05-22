@@ -11,7 +11,6 @@ export default function SearchBar({ onSubmit }) {
       });
       return;
     }
-    console.log(inputValue);
     onSubmit(inputValue);
     event.target.query.value = ""; 
   };
