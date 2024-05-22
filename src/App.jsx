@@ -56,9 +56,7 @@ function App() {
     {isError && <p>Error occurred while fetching images.</p>}
     {isLoading && <Loader />}
     {!isLoading && <ImageGallery images={images} />}
-    {!isLoading && images.length > 0 && !isError && (<LoadMoreBtn onClick={handleLoadMore} />
-      <ImageModal images={images}>
-      )}
+    {!isLoading && images.length > 0 && !isError && <LoadMoreBtn onClick={handleLoadMore} />}
   </>)
 }
 
