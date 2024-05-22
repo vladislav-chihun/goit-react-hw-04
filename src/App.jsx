@@ -57,6 +57,7 @@ function App() {
     {isLoading && <Loader />}
     {!isLoading && <ImageGallery images={images} />}
     {!isLoading && images.length > 0 && !isError && (<LoadMoreBtn onClick={handleLoadMore} />
+      <ImageModal images={images}>
       )}
   </>)
 }
