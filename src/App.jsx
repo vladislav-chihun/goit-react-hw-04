@@ -8,6 +8,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false)
   const [images, setImages] = useState([]);
+  const [isError, setIsError] = useState(false)
   function handleSearch(query) {
     setQuery(query)
 
@@ -17,6 +18,7 @@ function App() {
       if (query) {
         setIsLoading(true);
         try {
+          setIsError(false)
           const data = await apiFoo(query);
           const imageData = data.results.map((image) => ({
             smallImg: image.urls.small,
@@ -25,6 +27,7 @@ function App() {
           setImages(imageData);
         } catch (error) {
           console.error(error);
+          setIsError(true)
           setImages([]);
         } finally {
           setIsLoading(false);
@@ -34,11 +37,10 @@ function App() {
     
     fetchImages();
   }, [query]);
-  if (images.length === 0) {
-    return null;
-  }
+  
   return (<>
     <SearchBar onSubmit={handleSearch} />
+    {isError && <p>Error occurred while fetching images.</p>}
     {isLoading && <Loader />}
     {!isLoading && <ImageGallery images={images} />}
   </>)
