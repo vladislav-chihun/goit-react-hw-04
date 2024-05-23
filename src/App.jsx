@@ -69,7 +69,7 @@ function App() {
       {isLoading && <Loader />}
       {images.length === 0 && query !== "" && !isError && !isLoading && <p className={appCss.noImgFound}>No Images Found</p>}
       {images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
-      {!isLoading && images.length > 0 && !isError && totalPage && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
+      { images.length > 0 && totalPage && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
       <ImageModal isOpen={isModalOpen} onRequestClose={handleCloseModal} largeImg={selectedImage} />
     </div>
   );
