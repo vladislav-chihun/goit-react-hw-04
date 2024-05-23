@@ -16,7 +16,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [showBtn, setShowBtn] = useState(false);
+  const [totalPage, setTotalPage] = useState(false);
 
   function handleSearch(query) {
     setQuery(query);
@@ -25,10 +25,10 @@ function App() {
   }
 
   useEffect(() => {
-    const fetchImages = async () => {
-      if (query === "") {
+    if (query.trim() === "") {
         return;
-      }
+    }
+    const fetchImages = async () => {
       try {
         setIsError(false);
         setIsLoading(true);
@@ -38,8 +38,7 @@ function App() {
           regularImg: image.urls.regular,
         }));
         setImages((prevData) => [...prevData, ...imageData]);
-        setShowBtn(data.total_pages);
-        setShowBtn(data.total_pages > page);
+        setTotalPage( data.total_pages !== page)
       } catch (error) {
         setIsError(true);
       } finally {
@@ -49,8 +48,7 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const handleLoadMore = (event) => {
-    event.preventDefault();
+  const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
@@ -65,15 +63,15 @@ function App() {
   };
 
   return (
-    <>
+    <div>
       <SearchBar onSubmit={handleSearch} />
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
-      {!isLoading && images.length === 0 && query !== "" && !isError && <p className={appCss.noImgFound}>No Images Found</p>}
-      {!isLoading && images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
-      {!isLoading && images.length > 0 && !isError && showBtn && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
+      {images.length === 0 && query !== "" && !isError && !isLoading && <p className={appCss.noImgFound}>No Images Found</p>}
+      {images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
+      {totalPage && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
       <ImageModal isOpen={isModalOpen} onRequestClose={handleCloseModal} largeImg={selectedImage} />
-    </>
+    </div>
   );
 }
 
